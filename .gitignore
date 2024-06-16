@@ -1,0 +1,6 @@
+bin
+lib
+include
+share
+go.mod
+go.sum

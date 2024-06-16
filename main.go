@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/tensorflow/tensorflow/tensorflow/go"
-	"github.com/tensorflow/tensorflow/tensorflow/go/op"
+
+	tensorflow "github.com/galeone/tensorflow/tensorflow/go"
 )
 
 
 func loadModel(modelPath string) (*tensorflow.SavedModel, error){
 	model, err := tensorflow.LoadSavedModel(modelPath, []string{"serve"}, nil)
 	if err != nil {
-		return nil, fmt.Errorf("Error loading model: %v", err)
+		return nil, fmt.Errorf("error loading model: %v", err)
 	}
 	return model, nil
 }
@@ -21,7 +21,7 @@ func translate(model *tensorflow.SavedModel, inputText string) (string, error) {
 	// Create a tensor from the input text
 	inputTensor, err := tensorflow.NewTensor(inputText)
 	if err != nil {
-		return "", fmt.Errorf("Error creating input tensor: %v", err)
+		return "", fmt.Errorf("error creating input tensor: %v", err)
 	}
 
 	// Run the model
@@ -35,7 +35,7 @@ func translate(model *tensorflow.SavedModel, inputText string) (string, error) {
 		nil,
 	)
 	if err != nil {
-		return "", fmt.Errorf("Error running model: %v", err)
+		return "", fmt.Errorf("error running model: %v", err)
 	}
 
 	// Convert the output tensor to a string
