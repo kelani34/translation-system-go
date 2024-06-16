@@ -51,8 +51,20 @@ func main (){
 	modelPath := "" // our model path here
 	model, err := loadModel(modelPath)
 
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer model.Session.Close()
 
-	inputText := "Hello world!"
-	
-	fmt.Println("Input text: ", inputText)
+	// Translate a sample text
+	inputText := "Hello, world!"
+	translatedText, err := translate(model, inputText)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("Input text:", inputText)
+	fmt.Println("Translated text:", translatedText)
 } 
